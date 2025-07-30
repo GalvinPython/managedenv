@@ -1,0 +1,54 @@
+{
+  "name": "managedenv",
+  "version": "0.0.1",
+  "description": "Manage your environment variables with ease",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "author": "GalvinPython <imgalvin@pm.me>",
+  "license": "MIT",
+  "keywords": [
+    "env",
+    "environment",
+    "environment-variables",
+    "dotenv",
+    "env-loader",
+    "env-manager",
+    "config",
+    "configuration",
+    "env-parser",
+    "env-validation",
+    "required-env",
+    "env-defaults",
+    "type-safe",
+    "runtime-validation",
+    "env-casting",
+    "variable-definition",
+    "monorepo-support",
+    "typescript",
+    "typescript-library",
+    "nodejs",
+    "node-utils",
+    "developer-tools",
+    "cli-utils"
+  ],
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "jest": "^30.0.5",
+    "ts-jest": "^29.4.0",
+    "typescript": "^5.8.3"
+  }
+}
