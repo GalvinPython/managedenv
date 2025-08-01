@@ -1,6 +1,6 @@
 {
   "name": "managedenv",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Manage your environment variables with ease",
   "type": "module",
   "main": "dist/index.js",
@@ -43,7 +43,8 @@
     "nodejs",
     "node-utils",
     "developer-tools",
-    "cli-utils"
+    "cli-utils",
+    "bun"
   ],
   "devDependencies": {
     "@types/jest": "^30.0.0",
