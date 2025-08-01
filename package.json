@@ -2,6 +2,14 @@
   "name": "managedenv",
   "version": "0.1.0",
   "description": "Manage your environment variables with ease",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GalvinPython/managedenv"
+  },
+  "bugs": {
+    "url": "https://github.com/GalvinPython/managedenv/issues"
+  },
+  "homepage": "https://github.com/GalvinPython/managedenv#readme",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
