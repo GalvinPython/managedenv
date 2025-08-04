@@ -1,5 +1,8 @@
 # ManagedEnv
 
+[![Publish Package to npmjs](https://github.com/GalvinPython/managedenv/actions/workflows/main.yml/badge.svg)](https://github.com/GalvinPython/managedenv/actions/workflows/main.yml)
+[![NPM Version](https://img.shields.io/npm/v/managedenv)](https://www.npmjs.com/package/managedenv)
+
 Notice: ManagedEnv is currently in beta
 
 ManagedEnv is a lightweight, zero-dependency environment variable management package. It allows you to define, load, and validate environment variables with ease, making it a powerful tool for managing your application's configuration and environment variables.
