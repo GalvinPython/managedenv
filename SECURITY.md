@@ -28,16 +28,3 @@ I prefer it if you [opened a GitHub security advisory](https://github.com/galvin
 ### Alternative Contact
 
 If you do not wish to use GitHub, you may send an email to `imgalvin@pm.me` with the details of the issue
-
-## Disclosure Policy
-
-We follow [Coordinated Disclosure](https://en.wikipedia.org/wiki/Coordinated_disclosure). We will:
-
-1. Acknowledge receipt of the vulnerability report.
-2. Investigate and confirm the issue.
-3. Prepare and test a patch.
-4. Release the fix and publish an advisory.
-
----
-
-For more information, see the [npm security guidelines](https://docs.npmjs.com/policies/security).
