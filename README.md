@@ -1,7 +1,9 @@
 # ManagedEnv
 
+[![CI: Test (Node.js)](https://github.com/GalvinPython/managedenv/actions/workflows/test-node.yml/badge.svg)](https://github.com/GalvinPython/managedenv/actions/workflows/test-node.yml)
 [![Publish Package to npmjs](https://github.com/GalvinPython/managedenv/actions/workflows/main.yml/badge.svg)](https://github.com/GalvinPython/managedenv/actions/workflows/main.yml)
 [![NPM Version](https://img.shields.io/npm/v/managedenv)](https://www.npmjs.com/package/managedenv)
+[![Supported NodeJS Versions](https://img.shields.io/badge/NodeJS%20Versions-20,22,24,25-blue)](https://www.npmjs.com/package/managedenv)
 
 Notice: ManagedEnv is currently in beta
 

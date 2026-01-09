@@ -95,10 +95,16 @@ export class EnvManager<T extends ProjectVars = {}> {
                 default: defVal,
                 type = (v => v) as (val: string) => any,
                 useFlagInstead,
+                useWithFlag,
                 quitOnMissing,
             } = def;
 
             if (!result[project]) result[project] = {};
+
+            if (useWithFlag && !process.argv.includes(useWithFlag)) {
+                console.error(`Skipping variable "${name}" as useWithFlag "${useWithFlag}" not present.`);
+                continue;
+            }
 
             // First try CLI flag, then fallback to env var
             const raw = (useFlagInstead && this.getFlagValue(useFlagInstead)) || process.env[name];
