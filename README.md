@@ -60,6 +60,10 @@ API_KEY: test
 
 ## Preview
 
+### 0.2.0
+
+- Removed `flag` property for `useFlagInstead`
+
 ### 0.1.0
 
 - Added documentation

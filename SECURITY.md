@@ -8,9 +8,6 @@ Only the latest major version is actively maintained and receives security updat
 | ------- | --------- |
 | 0.x     | ✅        |
 
-<!-- For future reference -->
-<!-- | 0.x     | ❌        | -->
-
 ## Reporting a Vulnerability
 
 If you discover a security vulnerability in this project, please report it responsibly using one of the two listed methods. Do **not** create an issue about any vulnerabilities.
@@ -27,4 +24,4 @@ I prefer it if you [opened a GitHub security advisory](https://github.com/galvin
 
 ### Alternative Contact
 
-If you do not wish to use GitHub, you may send an email to `imgalvin@pm.me` with the details of the issue
+If you do not wish to use GitHub, you may send an email to `contact@socialstats.app` with the details of the issue

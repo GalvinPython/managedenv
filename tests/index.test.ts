@@ -13,7 +13,7 @@ describe("EnvManager", () => {
         const manager = new EnvManager()
             .add({
                 name: "DISCORD_TOKEN",
-                flag: "--discord-token",
+                useFlagInstead: "--discord-token",
                 type: String,
                 project: "discordBot",
                 required: true,
@@ -28,7 +28,7 @@ describe("EnvManager", () => {
         const manager = new EnvManager()
             .add({
                 name: "PORT",
-                flag: "--port",
+                useFlagInstead: "--port",
                 type: Number,
                 project: "apiServer",
                 default: 3000,
@@ -47,7 +47,7 @@ describe("EnvManager", () => {
         const manager = new EnvManager()
             .add({
                 name: "PORT",
-                flag: "--port",
+                useFlagInstead: "--port",
                 type: Number,
                 project: "apiServer",
                 required: false
