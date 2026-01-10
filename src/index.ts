@@ -28,7 +28,12 @@ export interface VariableDefinition<T = unknown> {
     /**
      * Optional CLI flag (e.g., --token) that can be used instead of ENV.
      */
-    flag?: string;
+    useFlagInstead?: string;
+
+    /**
+     * Only load the variable if this CLI flag is present.
+     */
+    useWithFlag?: string;
 
     /**
      * Whether to quit the process if a required variable is missing.
@@ -88,20 +93,25 @@ export class EnvManager<T extends ProjectVars = {}> {
                 required = false,
                 default: defVal,
                 type = (v => v) as (val: string) => any,
-                flag,
+                useFlagInstead,
+                useWithFlag,
                 quitOnMissing,
             } = def;
 
             if (!result[project]) result[project] = {};
 
+            if (useWithFlag && !process.argv.includes(useWithFlag)) {
+                continue;
+            }
+
             // First try CLI flag, then fallback to env var
-            const raw = (flag && this.getFlagValue(flag)) || process.env[name];
+            const raw = (useFlagInstead && this.getFlagValue(useFlagInstead)) || process.env[name];
 
             if (raw === undefined || raw === "") {
                 if (defVal !== undefined) {
                     result[project][name] = defVal;
                 } else if (required) {
-                    const msg = `Missing required variable/flag: ${name}${flag ? ` (flag: ${flag})` : ""}`;
+                    const msg = `Missing required variable/flag: ${name}${useFlagInstead ? ` (flag: ${useFlagInstead})` : ""}`;
                     if (quitOnMissing !== false) throw new Error(msg);
                     else console.warn(msg);
                 }

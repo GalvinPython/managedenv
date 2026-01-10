@@ -13,7 +13,7 @@ describe("EnvManager", () => {
         const manager = new EnvManager()
             .add({
                 name: "DISCORD_TOKEN",
-                flag: "--discord-token",
+                useFlagInstead: "--discord-token",
                 type: String,
                 project: "discordBot",
                 required: true,
@@ -28,7 +28,7 @@ describe("EnvManager", () => {
         const manager = new EnvManager()
             .add({
                 name: "PORT",
-                flag: "--port",
+                useFlagInstead: "--port",
                 type: Number,
                 project: "apiServer",
                 default: 3000,
@@ -47,7 +47,7 @@ describe("EnvManager", () => {
         const manager = new EnvManager()
             .add({
                 name: "PORT",
-                flag: "--port",
+                useFlagInstead: "--port",
                 type: Number,
                 project: "apiServer",
                 required: false
@@ -56,6 +56,95 @@ describe("EnvManager", () => {
         const env = manager.load();
 
         expect(env.apiServer.PORT).toBe(8080);
+    });
+
+    it("should load variable only when useWithFlag is present", () => {
+        process.env.POSTGRES_DEV_URL = "postgres://user:pass@localhost:5432/devdb";
+        process.argv.push("--dev");
+
+        const manager = new EnvManager().add({
+            name: "POSTGRES_DEV_URL",
+            type: String,
+            required: true,
+            useWithFlag: "--dev",
+        });
+
+        const env = manager.load();
+
+        expect(env.env.POSTGRES_DEV_URL).toBe("postgres://user:pass@localhost:5432/devdb");
+    });
+
+    it("should ignore variable when useWithFlag flag is not present", () => {
+        process.env.POSTGRES_DEV_URL = "postgres://user:pass@localhost:5432/devdb";
+
+        const manager = new EnvManager().add({
+            name: "POSTGRES_DEV_URL",
+            type: String,
+            required: true,
+            useWithFlag: "--dev",
+        });
+
+        const env = manager.load();
+
+        expect(env.env.POSTGRES_DEV_URL).toBeUndefined();
+    });
+
+    it("should not throw required error when useWithFlag is missing", () => {
+        const manager = new EnvManager().add({
+            name: "POSTGRES_DEV_URL",
+            required: true,
+            useWithFlag: "--dev",
+        });
+
+        expect(() => manager.load()).not.toThrow();
+    });
+
+    it("should throw when useWithFlag is present but variable is missing", () => {
+        process.argv.push("--dev");
+
+        const manager = new EnvManager().add({
+            name: "POSTGRES_DEV_URL",
+            required: true,
+            useWithFlag: "--dev",
+        });
+
+        expect(() => manager.load()).toThrow(
+            "Missing required variable/flag: POSTGRES_DEV_URL"
+        );
+    });
+
+    it("should only apply default when useWithFlag is present", () => {
+        const manager = new EnvManager().add({
+            name: "OPTIONAL_DEV_ONLY",
+            default: "dev-default",
+            useWithFlag: "--dev",
+            required: false,
+        });
+
+        // flag not present
+        let env = manager.load();
+        expect(env.env.OPTIONAL_DEV_ONLY).toBeUndefined();
+
+        // flag present
+        process.argv.push("--dev");
+        env = manager.load();
+        expect(env.env.OPTIONAL_DEV_ONLY).toBe("dev-default");
+    });
+
+    it("should combine useWithFlag and useFlagInstead correctly", () => {
+        process.argv.push("--dev", "--db-url", "postgres://flag");
+
+        const manager = new EnvManager().add({
+            name: "POSTGRES_DEV_URL",
+            useWithFlag: "--dev",
+            useFlagInstead: "--db-url",
+            type: String,
+            required: true,
+        });
+
+        const env = manager.load();
+
+        expect(env.env.POSTGRES_DEV_URL).toBe("postgres://flag");
     });
 
     it("should throw for missing required variable", () => {

@@ -1,7 +1,9 @@
 # ManagedEnv
 
+[![CI: Test (Node.js)](https://github.com/GalvinPython/managedenv/actions/workflows/test-node.yml/badge.svg)](https://github.com/GalvinPython/managedenv/actions/workflows/test-node.yml)
 [![Publish Package to npmjs](https://github.com/GalvinPython/managedenv/actions/workflows/main.yml/badge.svg)](https://github.com/GalvinPython/managedenv/actions/workflows/main.yml)
 [![NPM Version](https://img.shields.io/npm/v/managedenv)](https://www.npmjs.com/package/managedenv)
+[![Supported NodeJS Versions](https://img.shields.io/badge/NodeJS%20Versions-20,22,24,25-blue)](https://www.npmjs.com/package/managedenv)
 
 Notice: ManagedEnv is currently in beta
 
@@ -59,6 +61,11 @@ API_KEY: test
 # Changelog
 
 ## Preview
+
+### 0.2.0
+
+- Removed `flag` property in favour of `useFlagInstead`
+- Added new `useWithFlag` property to load an environment variable when an associated flag is passed into the arguments
 
 ### 0.1.0
 
