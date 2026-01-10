@@ -64,7 +64,8 @@ API_KEY: test
 
 ### 0.2.0
 
-- Removed `flag` property for `useFlagInstead`
+- Removed `flag` property in favour of `useFlagInstead`
+- Added new `useWithFlag` property to load an environment variable when an associated flag is passed into the arguments
 
 ### 0.1.0
 

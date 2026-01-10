@@ -27,7 +27,6 @@ export interface VariableDefinition<T = unknown> {
 
     /**
      * Optional CLI flag (e.g., --token) that can be used instead of ENV.
-     * @alias Removed `flag` property. Use this instead.
      */
     useFlagInstead?: string;
 
@@ -102,7 +101,6 @@ export class EnvManager<T extends ProjectVars = {}> {
             if (!result[project]) result[project] = {};
 
             if (useWithFlag && !process.argv.includes(useWithFlag)) {
-                console.error(`Skipping variable "${name}" as useWithFlag "${useWithFlag}" not present.`);
                 continue;
             }
 
@@ -113,7 +111,7 @@ export class EnvManager<T extends ProjectVars = {}> {
                 if (defVal !== undefined) {
                     result[project][name] = defVal;
                 } else if (required) {
-                    const msg = `Missing required variable/flag: ${name}${useFlagInstead ? ` (useFlagInstead: ${useFlagInstead})` : ""}`;
+                    const msg = `Missing required variable/flag: ${name}${useFlagInstead ? ` (flag: ${useFlagInstead})` : ""}`;
                     if (quitOnMissing !== false) throw new Error(msg);
                     else console.warn(msg);
                 }
