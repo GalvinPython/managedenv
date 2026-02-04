@@ -1,6 +1,10 @@
 export interface VariableDefinition<T = unknown> {
     /**
-     * The name of the variable (e.g., "API_KEY").
+     * The logical name/key under which the variable will be exposed
+     * in the returned object (e.g., "apiKey" or "databaseUrlDev").
+     *
+     * By default, this also serves as the environment variable name.
+     * If you want to read from a different environment variable, set `envName`.
      */
     name: string;
 
@@ -8,6 +12,15 @@ export interface VariableDefinition<T = unknown> {
      * A custom parser for the variable value (e.g., parseInt or Boolean).
      */
     type?: (val: string) => T;
+
+    /**
+     * The actual environment variable name to read from
+     * (e.g., "DATABASE_URL_DEV"). If omitted, `name` is used.
+     *
+     * This allows using a friendly `name` for the exposed key while
+     * still reading from a conventional ENV var name.
+     */
+    envName?: string;
 
     /**
      * Optional project this variable belongs to. Useful in monorepo setups.
@@ -89,6 +102,7 @@ export class EnvManager<T extends ProjectVars = {}> {
         for (const def of this.definitions) {
             const {
                 name,
+                envName,
                 project = "env",
                 required = false,
                 default: defVal,
@@ -105,7 +119,8 @@ export class EnvManager<T extends ProjectVars = {}> {
             }
 
             // First try CLI flag, then fallback to env var
-            const raw = (useFlagInstead && this.getFlagValue(useFlagInstead)) || process.env[name];
+            const envVarKey = envName ?? name;
+            const raw = (useFlagInstead && this.getFlagValue(useFlagInstead)) || process.env[envVarKey];
 
             if (raw === undefined || raw === "") {
                 if (defVal !== undefined) {
