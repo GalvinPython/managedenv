@@ -234,4 +234,44 @@ describe("EnvManager", () => {
 
         expect(env.env.TEST_VAR).toBe("raw_value");
     });
+
+    it("should expose value under custom name while reading from envName", () => {
+        process.env.DATABASE_URL_DEV = "postgres://env";
+
+        const manager = new EnvManager()
+            .add({
+                name: "databaseUrlDev",
+                envName: "DATABASE_URL_DEV",
+                type: String,
+                project: "envs",
+                required: true,
+            });
+
+        const env = manager.load();
+
+        expect(env.envs.databaseUrlDev).toBe("postgres://env");
+        // original env-style key should not exist under project
+        // (back-compat preserved for users not using envName)
+        // @ts-expect-error - type system won't know this key
+        expect(env.envs.DATABASE_URL_DEV).toBeUndefined();
+    });
+
+    it("should prefer CLI flag and still expose under custom name", () => {
+        process.env.DATABASE_URL_DEV = "postgres://env";
+        process.argv.push("--db-url", "postgres://flag");
+
+        const manager = new EnvManager()
+            .add({
+                name: "databaseUrlDev",
+                envName: "DATABASE_URL_DEV",
+                useFlagInstead: "--db-url",
+                type: String,
+                project: "envs",
+                required: true,
+            });
+
+        const env = manager.load();
+
+        expect(env.envs.databaseUrlDev).toBe("postgres://flag");
+    });
 });
